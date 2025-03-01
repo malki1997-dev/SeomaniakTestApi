@@ -1,5 +1,6 @@
 package com.example.seomaniak.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
@@ -32,6 +33,7 @@ public class Project
     private Date endDate;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Task> tasks;
 
 }

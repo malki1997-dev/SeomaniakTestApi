@@ -1,7 +1,9 @@
 package com.example.seomaniak.Services;
 
 import com.example.seomaniak.Models.Project;
+import com.example.seomaniak.Models.Task;
 import com.example.seomaniak.Repositories.ProjectRepository;
+import com.example.seomaniak.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,14 @@ public class ProjectServiceImp implements ProjectService
 {
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private TaskRepository taskRepository;
 
-    public ProjectServiceImp(ProjectRepository projectRepository)
+
+    public ProjectServiceImp(ProjectRepository projectRepository, TaskRepository taskRepository)
     {
         this.projectRepository = projectRepository;
+        this.taskRepository = taskRepository;
     }
 
 
@@ -56,5 +62,12 @@ public class ProjectServiceImp implements ProjectService
         Project project = projectRepository.findById(id).orElse(null);
         projectRepository.delete(project);
         return project;
+    }
+
+    @Override
+    public List<Task> findAllTaskByProjectId(Long projectId) {
+
+        return taskRepository.findAllByProject_Id(projectId);
+
     }
 }

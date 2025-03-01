@@ -1,6 +1,7 @@
 package com.example.seomaniak.Controllers;
 
 import com.example.seomaniak.Models.Project;
+import com.example.seomaniak.Models.Task;
 import com.example.seomaniak.Services.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class ProjectController
         project.setId(id);
         Project updatedProject = projectService.update(project);
         return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+    }
+
+    @GetMapping("{id}/tasks")
+    public ResponseEntity<List<Task>> getAllTasksByProjectId(@PathVariable Long id)
+    {
+        List<Task> tasks = projectService.findAllTaskByProjectId(id);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
 
